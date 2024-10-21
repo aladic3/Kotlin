@@ -5,14 +5,47 @@
     fun  processNumbers(numbers: List<Int>, operation: (Int) -> Int): List<Int> {
         return numbers.map { operation(it) }
     }
+    fun printUserInfo(name: String?, age: Any?): Unit{
+        val ageString = when (age) {
+            is Int -> age.toString()
+            is String -> age
+            else -> "Unknown"
+        }
+         "Name: ${name ?: "Guest"} Age: ${ageString ?: "Unknown"}".also {
+            println(it)
+        }
+    }
 
     fun main() {
+        printUserInfo("John", 25)
+        printUserInfo(null, 25)
+        printUserInfo("John", null)
+        printUserInfo(null, "null")
+
         val name = "Kotlin"
         var smt: String? = null
         var age: Int = 5;
         println(smt?.length ?: "Hello, $name!")
         println(smt?.length )
         println("Hello+ $name  ${age+1}")
+
+        val cars = listOf(
+            Car(2010, "Toyota"),
+            Car(2015, "BMW"),
+            Car(2018, "Audi"),
+            ElectricVehicle(2000, 2020),
+            ElectricVehicle(1000, 2010)
+        )
+
+        val updatedYear = cars.map { it.year + 10}
+        val filteredCars = cars.filter { it.year > 2010 }
+        val totalYears = cars.map {it.year}.reduce { acc, year -> acc + year }
+        val carDetails = cars.flatMap { listOf((it as? Car)?.band ?: "Unknown", it.year.toString(), (it as? ElectricVehicle)?.batteryCapacity ?: "Unknown") }
+
+        println(updatedYear)
+        println(filteredCars)
+        println(totalYears)
+        println(carDetails)
 
         fun  greet(name: String = "Kotlin"): String {
             return "Hello, $name!"}
@@ -45,4 +78,14 @@
         numbers2 = processNumbers(numbers) { it * 2 }
         println(numbers2)
 
+        try {
+            val car2 = createCar(1885, "BMW")
+        } catch (e: InvalidYearException) {
+            println(e.message)
+        }
+       try {
+            electronicVehicle.useCharge(4999)
+        } catch (e: InsufficientBatteryException) {
+            println(e.message)
+       }
     }
