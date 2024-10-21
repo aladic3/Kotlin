@@ -2,7 +2,9 @@
 
     import java.time.Year
 
-
+    fun  processNumbers(numbers: List<Int>, operation: (Int) -> Int): List<Int> {
+        return numbers.map { operation(it) }
+    }
 
     fun main() {
         val name = "Kotlin"
@@ -16,7 +18,7 @@
             return "Hello, $name!"}
         println(greet())
 
-        var sum: (Int, Int) -> Int = {x, y -> x + y}
+        var sum: (Int, Int) -> Int = {a, b -> a + b}
 
         println(sum(5, 6))
 
@@ -33,4 +35,14 @@
         car = Car(2010)
 
         car.info();
+        var electronicVehicle = ElectricVehicle(2000, 2020)
+        electronicVehicle.info()
+        electronicVehicle.charge()
+        electronicVehicle.info()
+        val electricVehicles = listOf(ElectricVehicle(2000, 2020), ElectricVehicle(1000, 2010), ElectricVehicle (1210, 2015))
+        val filteredVehicles = electronicVehicle.filterVehicle(electricVehicles)
+        filteredVehicles.forEach { it.info() }
+        numbers2 = processNumbers(numbers) { it * 2 }
+        println(numbers2)
+
     }
