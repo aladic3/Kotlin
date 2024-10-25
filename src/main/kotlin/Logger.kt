@@ -1,13 +1,18 @@
 package org.example
 
+import org.example.interfaces.Observer
 import java.io.FileWriter
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import org.example.interfaces.*
 
 class InvalidLogLevelException(message: String) : Exception(message)
-object Logger {
+object Logger: Observer {
     enum class LogLevel {
         DEBUG, INFO, WARNING, ERROR, FATAL
+    }
+    override fun update() {
+        log("Logger updated", LogLevel.INFO)
     }
 
     private var currentLevel: LogLevel = LogLevel.INFO

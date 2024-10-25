@@ -1,8 +1,7 @@
     package org.example
 
-    import java.io.FileWriter
-    import java.time.Year
-
+    import org.example.interfaces.Vehicle
+    import org.example.interfaces.VehicleFactory
 
 
     fun  processNumbers(numbers: List<Int>, operation: (Int) -> Int): List<Int> {
@@ -21,6 +20,45 @@
     }
 
     fun main() {
+
+        val house1 =   House.Builder()
+            .countFloors(2)
+            .square(100)
+            .typeRoof("Tile")
+            .build()
+        val house2 =   House.Builder()
+            .square(200)
+            .typeRoof("Metal")
+            .garageAvailable(true)
+            .build()
+
+        val house3 = house1.clone() as House
+        val house4 = house3.copy(countFloors = 5)
+        house3.info()
+        house4.info()
+        val truck1 = Truck.Builder()
+            .brand("Volvo")
+            .year(2010)
+            .payloadCapacity(2000)
+            .engine(Engine.Builder().power(200).type("Diesel").build())
+            .build()
+        val truck2 = truck1.clone() as Truck
+        truck1.info()
+        truck2.info()
+        val builderVehicle = VehicleAbstractFactory()
+        val engine = builderVehicle.createEngine(200, "Gasoline")
+        val elEngine = builderVehicle.createEngine(100, "Electric")
+        val listVehicle = mutableListOf<Vehicle>()
+        listVehicle.add(builderVehicle.createCar(2010, "Toyota", engine))
+        listVehicle.add(builderVehicle.createMotorcycle(2015, "BMW", engine))
+        listVehicle.add(builderVehicle.createElectricCar(2018, "Audi", 1000, elEngine))
+        listVehicle.add(builderVehicle.createTruck(2010, "Volvo", engine))
+        listVehicle.forEach { it.drive() }
+        listVehicle.forEach { it.info() }
+
+
+
+
 /*
         Logger.log("This is a debug message", Logger.LogLevel.DEBUG)
         Logger.log("This is an info message", Logger.LogLevel.INFO)
@@ -40,7 +78,7 @@
             CarFactory(), ElectricVehicleFactory(), TruckFactory())
 
         for (factory in carFactory) {
-            val vehicle = factory.createVehicle(2010, "Toyota")
+            val vehicle = factory.createVehicle(2010, "Toyota", Engine.Builder().power(200).type("Gasoline").build())
             println(vehicle.drive())
         }
 
