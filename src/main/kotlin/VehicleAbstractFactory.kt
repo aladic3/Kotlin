@@ -1,10 +1,14 @@
 package org.example
-
+import org.example.interfaces.Subject
 import org.example.interfaces.Vehicle
 
+
 class VehicleAbstractFactory: org.example.interfaces.VehicleAbstractFactory {
+    private val notifyObservers = NotifyObservers
+
+
    override fun createCar(year: Int, brand: String, engine: Engine): Car {
-        Logger.log("Creating Car")
+       notifyObservers.notifyObservers("Creating Car")
         return Car.Builder()
             .year(year)
             .brand(brand)
@@ -12,7 +16,7 @@ class VehicleAbstractFactory: org.example.interfaces.VehicleAbstractFactory {
             .build()
     }
     override fun createTruck(year: Int, brand: String, engine: Engine): Truck {
-        Logger.log("Creating Truck")
+        notifyObservers.notifyObservers("Creating Truck")
         return Truck.Builder()
             .year(year)
             .brand(brand)
@@ -20,7 +24,7 @@ class VehicleAbstractFactory: org.example.interfaces.VehicleAbstractFactory {
             .build()
     }
     override fun createMotorcycle(year: Int, brand: String, engine: Engine): Motorcycle {
-        Logger.log("Creating Motorcycle")
+        notifyObservers.notifyObservers("Creating Motorcycle")
         return Motorcycle.Builder()
             .year(year)
             .brand(brand)
@@ -28,7 +32,7 @@ class VehicleAbstractFactory: org.example.interfaces.VehicleAbstractFactory {
             .build()
     }
     override fun createElectricCar(year: Int, brand: String, battery: Int, engine: Engine): ElectricVehicle {
-        Logger.log("Creating Electric Vehicle")
+        notifyObservers.notifyObservers("Creating Electric Car")
         return ElectricVehicle.Builder()
             .year(year)
             .batteryCapacity(battery)
@@ -37,7 +41,7 @@ class VehicleAbstractFactory: org.example.interfaces.VehicleAbstractFactory {
             .build()
     }
     override fun createEngine(horsePower: Int, type: String): Engine {
-        Logger.log("Creating Engine")
+       notifyObservers.notifyObservers("Creating Engine")
         return Engine.Builder()
             .power(horsePower)
             .type(type)

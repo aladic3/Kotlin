@@ -27,6 +27,7 @@ data class House private constructor(
         return this.copy()
     }
     fun info() {
-        Logger.log("House with $countFloors floors, type of roof $typeRoof, square $square, garage available $garageAvailable")
+        NotifyObservers.notifyObservers("House with $countFloors floors, type of roof $typeRoof, square $square, garage available $garageAvailable")
+
     }
 }

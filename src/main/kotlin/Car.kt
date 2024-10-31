@@ -8,15 +8,23 @@ class InvalidYearException(message: String) : Exception(message)
 class InsufficientBatteryException(message: String) : Exception(message)
 
  @ConsistentCopyVisibility
- data class Car private constructor(val year: Int?,
+ data class Car private constructor(val year: Int? ,
                                     val band: String? = "BMW",
                                     val engine: Engine?): Vehicle, Prototype {
+
+    init {
+        if (year == null || year < 1886) {
+            throw InvalidYearException("Invalid year")
+        }
+
+    }
+
     override fun drive(): String {
         return "Driving"
     }
 
      override fun info(){
-         Logger.log("Car info", Logger.LogLevel.INFO)
+         NotifyObservers.notifyObservers("Car with year $year, band $band, engine $engine")
     }
 
         override fun clone(): Prototype {

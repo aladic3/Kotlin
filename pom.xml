@@ -19,6 +19,13 @@
             <id>mavenCentral</id>
             <url>https://repo1.maven.org/maven2/</url>
         </repository>
+
+            <repository>
+                <id>jetbrains</id>
+                <url>https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven</url>
+            </repository>
+
+
     </repositories>
 
     <build>
@@ -72,6 +79,25 @@
             <version>2.0.20</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.theokanning.openai-gpt3-java/service -->
+        <dependency>
+            <groupId>com.theokanning.openai-gpt3-java</groupId>
+            <artifactId>service</artifactId>
+            <version>0.18.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.ktor/ktor-client-core-mingwx64 -->
+        <!-- https://mvnrepository.com/artifact/io.ktor/ktor-client-core-mingwx64 -->
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-core-mingwx64</artifactId>
+            <version>3.0.1</version>
+            <type>pom</type>
+        </dependency>
+
+
+
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>

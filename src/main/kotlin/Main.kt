@@ -1,7 +1,11 @@
     package org.example
 
+    import mediaPlayer.Player
     import org.example.interfaces.Vehicle
     import org.example.interfaces.VehicleFactory
+    import org.example.Sorting.*
+    import org.example.*
+
 
 
     fun  processNumbers(numbers: List<Int>, operation: (Int) -> Int): List<Int> {
@@ -20,32 +24,43 @@
     }
 
     fun main() {
+        val houseFactory = HouseFactory()
+        val house1 =   houseFactory.createHouse(3, "Metal", 100, true)
+        //val house2 =   houseFactory.createHouse(2, "Wood", 200, false)
+        val vehicleFactory = CarFactory()
+        val car = vehicleFactory.createVehicle(2010, "Toyota", Engine.Builder().power(200).type("Gasoline").build())
 
-        val house1 =   House.Builder()
-            .countFloors(2)
-            .square(100)
-            .typeRoof("Tile")
-            .build()
-        val house2 =   House.Builder()
-            .square(200)
-            .typeRoof("Metal")
-            .garageAvailable(true)
-            .build()
+
+        val player = Player.create()
+        player.play()
+        player.pause()
+        player.forward()
+        player.next()
+        player.stop()
+
+
+
+        val sortingList = listOf(1, 5, 3, 2, 4)
+        val sort: Sorting = Sorting()
+        sort.setSortingStrategy(BubbleSort())
+        println(sort.sort(sortingList))
+        sort.setSortingStrategy(QuickSort())
+        println(sort.sort(sortingList))
+        sort.setSortingStrategy(TreeSort())
+        println(sort.sort(sortingList))
+
+
 
         val house3 = house1.clone() as House
         val house4 = house3.copy(countFloors = 5)
         house3.info()
         house4.info()
-        val truck1 = Truck.Builder()
-            .brand("Volvo")
-            .year(2010)
-            .payloadCapacity(2000)
-            .engine(Engine.Builder().power(200).type("Diesel").build())
-            .build()
+        val builderVehicle = VehicleAbstractFactory()
+        val truck1 = builderVehicle.createTruck(2010, "Volvo", Engine.Builder().power(200).type("Gasoline").build())
         val truck2 = truck1.clone() as Truck
         truck1.info()
         truck2.info()
-        val builderVehicle = VehicleAbstractFactory()
+
         val engine = builderVehicle.createEngine(200, "Gasoline")
         val elEngine = builderVehicle.createEngine(100, "Electric")
         val listVehicle = mutableListOf<Vehicle>()
